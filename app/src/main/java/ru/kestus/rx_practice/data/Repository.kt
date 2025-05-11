@@ -28,7 +28,6 @@ object Repository {
                 Thread.sleep(1000)
             }
         }
-        .map { it.toString() }
 
     fun updateMovieList() = Completable.create { completable ->
         apiService.fetchMovies()

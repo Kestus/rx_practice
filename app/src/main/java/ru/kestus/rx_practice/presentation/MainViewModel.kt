@@ -95,6 +95,7 @@ class MainViewModel : ViewModel() {
     
     private fun observeTimer() {
         repository.timerObservable
+            .map { it.toString() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<String> {
