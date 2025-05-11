@@ -21,15 +21,14 @@ object Repository {
     val movieListObservable: Observable<List<MovieItem>> = _movieListSubject
 
     val timerObservable = Observable
-        .create<Int> {
+        .create<Int> { emitter ->
             var time = 0
-            while (true) {
-                it.onNext(time++)
+            while (!emitter.isDisposed) {
+                emitter.onNext(time++)
                 Thread.sleep(1000)
             }
         }
         .map { it.toString() }
-
 
     fun updateMovieList() = Completable.create { completable ->
         apiService.fetchMovies()
